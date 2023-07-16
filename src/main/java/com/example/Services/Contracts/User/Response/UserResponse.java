@@ -1,6 +1,5 @@
 package com.example.Services.Contracts.User.Response;
 
-import java.io.Serializable;
 import java.util.List;
 
 import com.example.Domain.user.User;
