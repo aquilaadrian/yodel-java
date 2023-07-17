@@ -16,16 +16,16 @@ import com.example.Services.Contracts.User.Response.UserResponse;
 @RestController
 public class UserService implements IUserInterface {
 
-    @Override   
+    @Override
     @GetMapping()
     @RequestMapping(path = "api/user/getall")
-    public  UserResponse GetAllUsers() {
+    public UserResponse GetAllUsers() {
         List<User> dto = new ArrayList<User>();
-		dto.add( new User("1", "Mariam", 21, LocalDate.of(2000, Month.JULY, 5), "mariam@gmail.com"));
+        dto.add(new User("1", "Mariam", 21, LocalDate.of(2000, Month.JULY, 5), "mariam@gmail.com"));
         var response = new UserResponse("Ok", dto);
-        //return dto;
-		return response ;
-		
+        // return dto;
+        return response;
+
     }
-    
+
 }

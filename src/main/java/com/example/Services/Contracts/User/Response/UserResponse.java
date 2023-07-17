@@ -5,7 +5,6 @@ import java.util.List;
 import com.example.Domain.user.User;
 import java.util.Objects;
 
-
 public class UserResponse {
 
     private String ResponeStatus;
@@ -65,10 +64,9 @@ public class UserResponse {
     @Override
     public String toString() {
         return "{" +
-            " ResponeStatus='" + getResponeStatus() + "'" +
-            ", Users='" + getUsers() + "'" +
-            "}";
+                " ResponeStatus='" + getResponeStatus() + "'" +
+                ", Users='" + getUsers() + "'" +
+                "}";
     }
-     
-    
+
 }
