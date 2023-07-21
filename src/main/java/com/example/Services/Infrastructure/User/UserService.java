@@ -49,20 +49,23 @@ public class UserService implements IUserInterface {
     @PostMapping(path = "api/user/register")
     public Optional<UserResponse> RegisterUser(@RequestBody User user) {
         System.out.println(user.toString());
-        Optional<List<User>> result = UserRepository.findUserByEmail(user.getEmail());
-        System.out.println(result.get());
-        if (result.get().isEmpty()) {
-            UserRepository.save(user);
-            System.out.println("tralala");
+        try {
+            Optional<List<User>> result = UserRepository.findUserByEmail(user.getEmail());
+            System.out.println(result.get());
+            if (result.get().isEmpty()) {
+                UserRepository.save(user);
+                System.out.println("tralala");
 
-            Optional<UserResponse> response = Optional
-                    .of(new UserResponse("Ok", UserRepository.findUserByEmail(user.getEmail())));
-            return response;
-        } else {
-            Optional<UserResponse> exRE = Optional.of(new UserResponse("Unknown Error"));
+                Optional<UserResponse> response = Optional
+                        .of(new UserResponse("Ok", UserRepository.findUserByEmail(user.getEmail())));
+                return response;
+            }
+
+        } catch (Exception e) {
+            Optional<UserResponse> exRE = Optional.of(new UserResponse(e.toString()));
             return exRE;
         }
-
+        return Optional.empty();
     }
 
 }
