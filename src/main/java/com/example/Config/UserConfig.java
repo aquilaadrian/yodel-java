@@ -22,9 +22,9 @@ public class UserConfig {
     CommandLineRunner commandLineRunner(IUserRepository repository) {
 
         return args -> {
-            User mariam = new User("Mariam", 21, LocalDate.of(2000, Month.JULY, 5),
+            User mariam = new User("Mariam", LocalDate.of(2000, Month.JULY, 5),
                     "mariam@gmail.com");
-            User alex = new User("Alex", 25, LocalDate.of(2004, Month.JUNE, 5),
+            User alex = new User("Alex", LocalDate.of(2004, Month.JUNE, 5),
                     "alex@gmail.com");
 
             repository.saveAll(java.util.List.of(mariam, alex));

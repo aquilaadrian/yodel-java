@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.example.Domain.user.User;
 import java.util.Objects;
+import java.util.Optional;
 
 public class UserResponse {
 
@@ -17,6 +18,21 @@ public class UserResponse {
     public UserResponse(String ResponeStatus, List<User> Users) {
         this.ResponeStatus = ResponeStatus;
         this.Users = Users;
+    }
+
+    public UserResponse(String ResponeStatus) {
+        this.ResponeStatus = ResponeStatus;
+        this.Users = null;
+    }
+
+    public UserResponse(String ResponeStatus, Optional<List<User>> Users) {
+        this.ResponeStatus = ResponeStatus;
+        if (Users.isPresent()) {
+
+            this.Users = Users.get();
+        } else {
+            throw new IllegalStateException("User Not Found");
+        }
     }
 
     public String getResponeStatus() {

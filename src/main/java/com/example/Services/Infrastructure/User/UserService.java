@@ -4,11 +4,16 @@ import java.time.LocalDate;
 import java.time.Month;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+
+import javax.swing.text.html.Option;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -32,7 +37,8 @@ public class UserService implements IUserInterface {
     @RequestMapping(path = "api/user/getall")
     public UserResponse GetAllUsers() {
         List<User> dto = new ArrayList<User>();
-        dto.add(new User("1L", "Mariam", 21, LocalDate.of(2000, Month.JULY, 5), "mariam@gmail.com"));
+        // dto.add(new User("1L", "Mariam", 21, LocalDate.of(2000, Month.JULY, 5),
+        // "mariam@gmail.com"));
         var response = new UserResponse("Ok", UserRepository.findAll());
         // return dto;
         return response;
@@ -40,14 +46,22 @@ public class UserService implements IUserInterface {
     }
 
     @Override
-    @GetMapping()
-    @RequestMapping(path = "api/user/register")
-    public UserResponse RegisterUser() {
-        List<User> dto = new ArrayList<User>();
-        dto.add(new User("1L", "Mariam", 21, LocalDate.of(2000, Month.JULY, 5), "mariam@gmail.com"));
-        var response = new UserResponse("Ok", UserRepository.findAll());
-        // return dto;
-        return response;
+    @PostMapping(path = "api/user/register")
+    public Optional<UserResponse> RegisterUser(@RequestBody User user) {
+        System.out.println(user.toString());
+        Optional<List<User>> result = UserRepository.findUserByEmail(user.getEmail());
+        System.out.println(result.get());
+        if (result.get().isEmpty()) {
+            UserRepository.save(user);
+            System.out.println("tralala");
+
+            Optional<UserResponse> response = Optional
+                    .of(new UserResponse("Ok", UserRepository.findUserByEmail(user.getEmail())));
+            return response;
+        } else {
+            Optional<UserResponse> exRE = Optional.of(new UserResponse("Unknown Error"));
+            return exRE;
+        }
 
     }
 
