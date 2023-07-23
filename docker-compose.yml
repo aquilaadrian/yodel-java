@@ -9,7 +9,7 @@ services:
     environment:
       POSTGRES_PASSWORD: "tralala1212"
       POSTGRES_USER: "aquilaadrian"
-      POSTGRES_DB: "postgres"
+      POSTGRES_DB: "yodel"
 
   # adminer:
   #   image: adminer
